@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(this, "启用极致模式成功!", Toast.LENGTH_LONG).show();
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Toast.makeText(this, "启用极致模式失败!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "启用极致模式失败!"+e.getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
 

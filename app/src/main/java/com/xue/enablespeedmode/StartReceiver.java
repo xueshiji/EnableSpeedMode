@@ -23,7 +23,7 @@ public class StartReceiver extends BroadcastReceiver {
                 Toast.makeText(context, "启用极致模式成功!", Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(context, "启用极致模式失败!", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "启用极致模式失败!"+e.getMessage(), Toast.LENGTH_LONG).show();
             }
 
 //            Intent intent= new Intent(context, MainActivity.class);

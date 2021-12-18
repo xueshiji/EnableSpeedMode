@@ -7,19 +7,19 @@ android {
 
     defaultConfig {
         applicationId "com.xue.enablespeedmode"
-        minSdk 31
-        targetSdk 32
+        minSdk 22
+        targetSdk 22
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        targetSdkVersion 32
-        minSdkVersion 31
+        targetSdkVersion 22
+        minSdkVersion 22
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
