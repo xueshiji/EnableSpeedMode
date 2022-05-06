@@ -13,4 +13,10 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="btnAutoTxt">自动</string>
+    <string name="blanceTxt">均衡</string>
+    <string name="powersaveTxt">省电</string>
+    <string name="performanceTxt">性能</string>
+    <string name="fastTxt">极速</string>
+    <string name="btnopenycactivity">设置yc模式</string>
 </resources>

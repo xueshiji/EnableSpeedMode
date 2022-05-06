@@ -14,19 +14,30 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.topjohnwu.superuser.Shell;
+
 public class MainActivity extends AppCompatActivity {
+    static {
+        // Set settings before the main shell can be created
+        Shell.enableVerboseLogging = BuildConfig.DEBUG;
+        Shell.setDefaultBuilder(Shell.Builder.create()
+                .setFlags(Shell.FLAG_REDIRECT_STDERR)
+                .setTimeout(10)
+        );
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTitle("极致模式设置");
         SharedPreferences preferences = this.getSharedPreferences("settings", MODE_PRIVATE);
         boolean isAutoRun = preferences.getBoolean("isAutoRun", false);
         setContentView(R.layout.activity_main);
         Button btnEnable = findViewById(R.id.btnEnable);
         Button btnJump = findViewById(R.id.btnJump);
-        btnJump.setOnClickListener(view -> {
-            openAutoStart();
-        });
+        Button btnOpenYcActivity = findViewById(R.id.btnOpenYcActivity);
+        btnJump.setOnClickListener(view -> openAutoStart());
+        btnOpenYcActivity.setOnClickListener(view -> openYcActivity());
 
         TextView tvStatus = findViewById(R.id.tvStatus);
         Switch swAutorun = findViewById(R.id.swAutorun);
@@ -76,5 +87,12 @@ public class MainActivity extends AppCompatActivity {
         intent.setComponent(new ComponentName("com.android.settings", "com.android.settings.applications.InstalledAppDetails"));
         intent.setData(Uri.fromParts("package", this.getPackageName(), null));
         startActivity(intent);
+    }
+
+    private void openYcActivity() {
+        Shell.getShell(shell -> {
+            Intent intent = new Intent(this, YcModeActivity.class);
+            startActivity(intent);
+        });
     }
 }
