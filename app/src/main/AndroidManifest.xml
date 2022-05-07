@@ -11,12 +11,18 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@drawable/ic_launcher"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.EnableSpeedMode">
+        android:supportsRtl="true">
+
         <activity
+            android:theme="@style/Theme.EnableSpeedMode"
             android:name=".YcModeActivity"
             android:exported="false" />
         <activity
+            android:theme="@style/AppTheme.About"
+            android:name=".AboutActivity"
+            android:exported="false" />
+        <activity
+            android:theme="@style/Theme.EnableSpeedMode"
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

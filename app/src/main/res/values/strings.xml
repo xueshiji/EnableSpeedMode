@@ -19,4 +19,6 @@
     <string name="performanceTxt">性能</string>
     <string name="fastTxt">极速</string>
     <string name="btnopenycactivity">设置yc模式</string>
+    <string name="card_content">由于miui官方把极致模式隐藏了，所以有了本应用，用于启动极致模式. 该模式主要用于开启全局高刷新率\n2022年5月6日更新：新增修改yc调度运行模式的功能</string>
+    <string name="btnabouttxt">关于</string>
 </resources>

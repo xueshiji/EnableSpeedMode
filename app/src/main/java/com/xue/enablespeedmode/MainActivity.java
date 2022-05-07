@@ -8,12 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.widget.Button;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.topjohnwu.superuser.Shell;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,11 +36,13 @@ public class MainActivity extends AppCompatActivity {
         Button btnEnable = findViewById(R.id.btnEnable);
         Button btnJump = findViewById(R.id.btnJump);
         Button btnOpenYcActivity = findViewById(R.id.btnOpenYcActivity);
+        Button btnAbout = findViewById(R.id.btnAbout);
         btnJump.setOnClickListener(view -> openAutoStart());
         btnOpenYcActivity.setOnClickListener(view -> openYcActivity());
+        btnAbout.setOnClickListener(view -> openAboutActivity());
 
         TextView tvStatus = findViewById(R.id.tvStatus);
-        Switch swAutorun = findViewById(R.id.swAutorun);
+        SwitchMaterial swAutorun = findViewById(R.id.swAutorun);
         swAutorun.setChecked(isAutoRun);
         swAutorun.setOnCheckedChangeListener((compoundButton, b) -> {
             SharedPreferences.Editor edit = preferences.edit();
@@ -94,5 +96,10 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, YcModeActivity.class);
             startActivity(intent);
         });
+    }
+
+    private void openAboutActivity() {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 }
