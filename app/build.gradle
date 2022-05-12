@@ -9,8 +9,8 @@ android {
         applicationId "com.xue.enablespeedmode"
         minSdk 22
         targetSdk 22
-        versionCode 3
-        versionName "3.0"
+        versionCode 4
+        versionName "3.1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //noinspection ExpiredTargetSdkVersion
@@ -53,6 +53,21 @@ android {
     buildFeatures {
         viewBinding true
     }
+    //自定义apk名称含版本号信息
+    android.applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def fileName = "极致模式_${defaultConfig.versionName}(${defaultConfig.versionCode})-${releaseTime()}.apk"
+            def outputFile = output.outputFile
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                outputFileName = fileName
+            }
+        }
+    }
+}
+
+//获取编译时间
+static def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 dependencies {
     def libsuVersion = '5.0.1'
