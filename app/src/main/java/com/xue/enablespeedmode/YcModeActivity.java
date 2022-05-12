@@ -2,7 +2,6 @@ package com.xue.enablespeedmode;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -12,8 +11,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.topjohnwu.superuser.Shell;
-
-import java.io.File;
 
 public class YcModeActivity extends AppCompatActivity {
 
@@ -29,8 +26,8 @@ public class YcModeActivity extends AppCompatActivity {
         Button btnPowersave = findViewById(R.id.btnPowersave);
         Button btnPerformance = findViewById(R.id.btnPerformance);
         Button btnFast = findViewById(R.id.btnFast);
-        if (!fileIsExists(Environment.getExternalStorageDirectory().getPath() + "/Android/yc/uperf/cur_powermode.txt")) {
-            tvYcStatus.setText("您未安装yc调度，无法设置!");
+        if (!isYcOk()) {
+            tvYcStatus.setText("您未安装或未启用yc调度,，无法设置!");
             btnauto.setEnabled(false);
             btnBalance.setEnabled(false);
             btnPowersave.setEnabled(false);
@@ -97,18 +94,25 @@ public class YcModeActivity extends AppCompatActivity {
         }
     }
 
-    public boolean fileIsExists(String fileName) {
+    public boolean isYcOk() {
         try {
-            File f = new File(fileName);
-            if (f.exists()) {
-                Log.i("测试", "有这个文件");
+            Shell.Result uperf = Shell.cmd("if [ -d \"/data/adb/modules/uperf/\" ]; then\n" +
+                    "   echo 1\n" +
+                    "   else\n" +
+                    "   echo 0\n" +
+                    "fi").exec();
+            Shell.Result disable = Shell.cmd("if [ -d \"/data/adb/modules/uperf/disable\" ]; then\n" +
+                    "   echo 1\n" +
+                    "   else\n" +
+                    "   echo 0\n" +
+                    "fi").exec();
+            if ("1".equals(uperf.getOut().get(0)) && "0".equals(disable.getOut().get(0))) {
                 return true;
             } else {
-                Log.i("测试", "没有这个文件");
                 return false;
             }
         } catch (Exception e) {
-            Log.i("测试", "崩溃");
+            Log.i("检测yc", e.toString());
             return false;
         }
     }
