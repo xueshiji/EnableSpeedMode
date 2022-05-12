@@ -56,7 +56,7 @@ android {
     //自定义apk名称含版本号信息
     android.applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            def fileName = "极致模式_${defaultConfig.versionName}(${defaultConfig.versionCode})-${releaseTime()}.apk"
+            def fileName = "${defaultConfig.applicationId}_${defaultConfig.versionName}(${defaultConfig.versionCode})-${releaseTime()}.apk"
             def outputFile = output.outputFile
             if (outputFile != null && outputFile.name.endsWith('.apk')) {
                 outputFileName = fileName
