@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
             btnEnable.setBackgroundColor(currentStatus ? Color.RED : Color.parseColor("#2553E1"));
             btnEnable.setText(currentStatus ? "关闭极致模式" : "启用极致模式");
             tvStatus.setText(currentStatus ? "极致模式已启用" : "极致模式未启用");
+            sendBroadcast(new Intent("com.xue.enablespeedmode.updateStatus"));
         });
     }
 
@@ -87,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnEnable = findViewById(R.id.btnEnable);
         btnEnable.setBackgroundColor(currentStatus ? Color.RED : Color.parseColor("#2553E1"));
         btnEnable.setText(currentStatus ? "关闭极致模式" : "启用极致模式");
+        sendBroadcast(new Intent("com.xue.enablespeedmode.updateStatus"));
     }
 
     private void openAutoStart() {
