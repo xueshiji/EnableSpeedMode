@@ -9,8 +9,8 @@ android {
         applicationId "com.xue.enablespeedmode"
         minSdk 22
         targetSdk 22
-        versionCode 4
-        versionName "3.1.0"
+        versionCode 5
+        versionName "3.2.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //noinspection ExpiredTargetSdkVersion
