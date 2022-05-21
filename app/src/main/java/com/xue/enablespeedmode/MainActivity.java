@@ -1,6 +1,7 @@
 package com.xue.enablespeedmode;
 
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
@@ -77,6 +79,32 @@ public class MainActivity extends AppCompatActivity {
             tvStatus.setText(currentStatus ? "极致模式已启用" : "极致模式未启用");
             sendBroadcast(new Intent("com.xue.enablespeedmode.updateStatus"));
         });
+        boolean isAgree = preferences.getBoolean("isAgree", false);
+        if (!isAgree) {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setIcon(R.drawable.ic_launcher)//设置标题的图片
+                    .setTitle("隐私协议")//设置对话框的标题
+                    .setMessage(getString(R.string.privacyStr))//设置对话框的内容
+                    //设置对话框的按钮
+                    .setNegativeButton("不同意", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Toast.makeText(MainActivity.this, "点击了取消按钮", Toast.LENGTH_SHORT).show();
+                            dialog.dismiss();
+                            System.exit(0);
+                        }
+                    })
+                    .setPositiveButton("同意", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            SharedPreferences.Editor edit = preferences.edit();
+                            edit.putBoolean("isAgree", true);
+                            edit.apply();
+                            dialog.dismiss();
+                        }
+                    }).create();
+            dialog.show();
+        }
     }
 
     @Override

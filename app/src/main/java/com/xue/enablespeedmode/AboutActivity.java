@@ -51,5 +51,8 @@ public class AboutActivity extends AbsAboutActivity {
         items.add(new License("MultiType", "drakeet", License.APACHE_2, "https://github.com/drakeet/MultiType"));
         items.add(new License("about-page", "drakeet", License.APACHE_2, "https://github.com/drakeet/about-page"));
         items.add(new License("libsu", "topjohnwu", License.APACHE_2, "https://github.com/topjohnwu/libsu"));
+
+        items.add(new Category("隐私协议"));
+        items.add(new Card(getString(R.string.privacyStr)));
     }
 }
