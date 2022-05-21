@@ -30,15 +30,25 @@ public class YcModeActivity extends AppCompatActivity {
         Button btnPowersave = findViewById(R.id.btnPowersave);
         Button btnPerformance = findViewById(R.id.btnPerformance);
         Button btnFast = findViewById(R.id.btnFast);
-        if (!isYcOk()) {
-            tvYcStatus.setText("您未安装或未启用yc调度,，无法设置!");
+        Boolean appGrantedRoot = Shell.isAppGrantedRoot();
+        if (appGrantedRoot == null || !appGrantedRoot) {
+            tvYcStatus.setText("您未授予root权限,无法设置!");
             btnauto.setEnabled(false);
             btnBalance.setEnabled(false);
             btnPowersave.setEnabled(false);
             btnPerformance.setEnabled(false);
             btnFast.setEnabled(false);
         } else {
-            tvYcStatus.setText(ycModeToChinese(getYcmode()));
+            if (!isYcOk()) {
+                tvYcStatus.setText("您未安装或未启用yc调度,，无法设置!");
+                btnauto.setEnabled(false);
+                btnBalance.setEnabled(false);
+                btnPowersave.setEnabled(false);
+                btnPerformance.setEnabled(false);
+                btnFast.setEnabled(false);
+            } else {
+                tvYcStatus.setText(ycModeToChinese(getYcmode()));
+            }
         }
 
         btnauto.setOnClickListener(button -> setYcModeListener(button, tvYcStatus));

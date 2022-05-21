@@ -7,15 +7,15 @@ android {
 
     defaultConfig {
         applicationId "com.xue.enablespeedmode"
-        minSdk 22
-        targetSdk 22
-        versionCode 5
-        versionName "3.2.0"
+        minSdk 31
+        targetSdk 32
+        versionCode 6
+        versionName "3.3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         //noinspection ExpiredTargetSdkVersion
-        targetSdkVersion 22
-        minSdkVersion 22
+        targetSdkVersion 32
+        minSdkVersion 31
     }
 
     buildTypes {

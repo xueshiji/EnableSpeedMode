@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.provider.Settings;
 import android.widget.Toast;
 
 /**
@@ -23,12 +22,11 @@ public class StartReceiver extends BroadcastReceiver {
                 SharedPreferences preferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
                 boolean isAutoRun = preferences.getBoolean("isAutoRun", false);
                 if (isAutoRun) {
-                    Settings.System.putInt(context.getContentResolver(), "speed_mode", 1);
-                    Toast.makeText(context, "启用极致模式成功!", Toast.LENGTH_LONG).show();
+                    SpeedModeUtil.setSpeedMode(context, true);
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                Toast.makeText(context, "启用极致模式失败!" + e.getMessage(), Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "开机设置极致模式失败!" + e.getMessage(), Toast.LENGTH_LONG).show();
             }
         }
     }
