@@ -22,7 +22,7 @@ public class StartReceiver extends BroadcastReceiver {
                 SharedPreferences preferences = context.getSharedPreferences("settings", Context.MODE_PRIVATE);
                 boolean isAutoRun = preferences.getBoolean("isAutoRun", false);
                 if (isAutoRun) {
-                    SpeedModeUtil.setSpeedMode(context, true);
+                    SpeedModeUtil.setSpeedMode(context, true, true, true);
                 }
             } catch (Exception e) {
                 e.printStackTrace();

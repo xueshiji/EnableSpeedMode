@@ -30,6 +30,20 @@
             </intent-filter>
         </activity>
 
+        <service
+            android:name="com.xue.enablespeedmode.SpeedModeTileService"
+            android:exported="false"
+            android:icon="@drawable/ic_launcher"
+            android:label="极致模式"
+            android:permission="android.permission.BIND_QUICK_SETTINGS_TILE">
+            <intent-filter>
+                <action android:name="android.service.quicksettings.action.QS_TILE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.service.quicksettings.ACTIVE_TILE"
+                android:value="true" />
+        </service>
         <meta-data
             android:name="android.max_aspect"
             android:value="2.1" />

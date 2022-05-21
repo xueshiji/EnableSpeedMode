@@ -28,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
+    Button btnEnable;
+    TextView tvStatus;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences preferences = this.getSharedPreferences("settings", MODE_PRIVATE);
         boolean isAutoRun = preferences.getBoolean("isAutoRun", false);
         setContentView(R.layout.activity_main);
-        Button btnEnable = findViewById(R.id.btnEnable);
+        btnEnable = findViewById(R.id.btnEnable);
         Button btnJump = findViewById(R.id.btnJump);
         Button btnOpenYcActivity = findViewById(R.id.btnOpenYcActivity);
         Button btnAbout = findViewById(R.id.btnAbout);
@@ -47,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         btnOpenYcActivity.setOnClickListener(view -> openYcActivity());
         btnAbout.setOnClickListener(view -> openAboutActivity());
 
-        TextView tvStatus = findViewById(R.id.tvStatus);
+        tvStatus = findViewById(R.id.tvStatus);
         SwitchMaterial swAutorun = findViewById(R.id.swAutorun);
         swAutorun.setChecked(isAutoRun);
         swAutorun.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -57,12 +60,8 @@ public class MainActivity extends AppCompatActivity {
         });
         btnEnable.setOnClickListener(view -> {
             boolean currentStatus = SpeedModeUtil.isSpeedModeEnable(this);
-            SpeedModeUtil.setSpeedMode(this, !currentStatus);
-            currentStatus = SpeedModeUtil.isSpeedModeEnable(this);
-            btnEnable.setBackgroundColor(currentStatus ? Color.RED : Color.parseColor("#2553E1"));
-            btnEnable.setText(currentStatus ? "关闭极致模式" : "启用极致模式");
-            tvStatus.setText(currentStatus ? "极致模式已启用" : "极致模式未启用");
-            sendBroadcast(new Intent("com.xue.enablespeedmode.updateStatus"));
+            SpeedModeUtil.setSpeedMode(this, !currentStatus, true, true);
+            updateview(btnEnable, tvStatus);
         });
         boolean isAgree = preferences.getBoolean("isAgree", false);
         if (!isAgree) {
@@ -92,16 +91,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        boolean currentStatus = SpeedModeUtil.isSpeedModeEnable(this);
-        TextView tvStatus = findViewById(R.id.tvStatus);
-        tvStatus.setText(currentStatus ? "极致模式已启用" : "极致模式未启用");
-        Button btnEnable = findViewById(R.id.btnEnable);
+    private void updateview(Button btnEnable, TextView tvStatus) {
+        boolean currentStatus;
+        currentStatus = SpeedModeUtil.isSpeedModeEnable(this);
         btnEnable.setBackgroundColor(currentStatus ? Color.RED : Color.parseColor("#2553E1"));
         btnEnable.setText(currentStatus ? "关闭极致模式" : "启用极致模式");
-        sendBroadcast(new Intent("com.xue.enablespeedmode.updateStatus"));
+        tvStatus.setText(currentStatus ? "极致模式已启用" : "极致模式未启用");
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        updateview(btnEnable, tvStatus);
     }
 
     private void openAutoStart() {
